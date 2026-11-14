@@ -69,45 +69,41 @@ class Array:
         return Array(result_data, tuple(result_shape))
 
         # Addition
-
     def __add__(self, other):
-        from .operations import add_arrays
-        return add_arrays(self, other)
+        from .operations import add
+        return add(self, other)
 
     def __radd__(self, other):
+        from .operations import add
         return self.__add__(other)
 
         # Subtraction
-
     def __sub__(self, other):
-        from .operations import subtract_arrays
-        return subtract_arrays(self, other)
+        from .operations import subtract
+        return subtract(self, other)
 
     def __rsub__(self, other):
-        from .operations import subtract_arrays
-        return subtract_arrays(other, self)
+        from .operations import subtract
+        return subtract(other, self)
 
         # Multiplication
-
     def __mul__(self, other):
-        from .operations import multiply_arrays
-        return multiply_arrays(self, other)
+        from .operations import multiply
+        return multiply(self, other)
 
     def __rmul__(self, other):
         return self.__mul__(other)
 
         # Division
-
     def __truediv__(self, other):
-        from .operations import divide_arrays
-        return divide_arrays(self, other)
+        from .operations import divide
+        return divide(self, other)
 
     def __rtruediv__(self, other):
-        from .operations import divide_arrays
-        return divide_arrays(other, self)
+        from .operations import divide
+        return divide(other, self)
 
         # Comparisons
-
     def __eq__(self, other):
         from .operations import equal
         return equal(self, other)
