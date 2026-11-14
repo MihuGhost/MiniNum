@@ -1,7 +1,10 @@
 import pytest
 from mininum import Array
 
-""""PHASE 1"""
+""""
+PHASE 1
+"""
+
 def test_invalid_shape():
     with pytest.raises(
             ValueError,
@@ -83,8 +86,9 @@ def test_array_definition():
     assert len(arr) == 4
 
 
-"""PHASE 2"""
-
+"""
+PHASE 2
+"""
 
 def test_array_indexing():
     arr = Array(

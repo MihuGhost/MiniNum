@@ -4,16 +4,16 @@ from itertools import product
 class Array:
 
     def __init__(self, data, shape):
-        validate_shape(data, shape)
+        _validate_shape(data, shape)
 
         self.data = data
         self.shape = tuple(shape)
         self.ndim = len(self.shape)
         self.size = len(self.data)
-        self.strides = calculate_strides(self.shape)
+        self.strides = _calculate_strides(self.shape)
 
     def __str__(self):
-        return str(to_nested(self.data, self.shape))
+        return str(_to_nested(self.data, self.shape))
 
     def __repr__(self):
         return f"Array({self.data}, shape={self.shape})"
@@ -38,8 +38,8 @@ class Array:
 
         for axis, item in enumerate(key):
             # Integer indexing
-            if isinstance(item, int) and not isinstance(item, bool): # bool is a subclass of int [1 true]
-                index = normalize_index(self.shape, item, axis)
+            if isinstance(item, int) and not isinstance(item, bool):  # bool is a subclass of int [1 true]
+                index = _normalize_index(self.shape, item, axis)
                 selected_indices.append([index])
             # Slicing
             elif isinstance(item, slice):
@@ -68,6 +68,70 @@ class Array:
         # Return a new Array containing the selected data
         return Array(result_data, tuple(result_shape))
 
+        # Addition
+
+    def __add__(self, other):
+        from .operations import add_arrays
+        return add_arrays(self, other)
+
+    def __radd__(self, other):
+        return self.__add__(other)
+
+        # Subtraction
+
+    def __sub__(self, other):
+        from .operations import subtract_arrays
+        return subtract_arrays(self, other)
+
+    def __rsub__(self, other):
+        from .operations import subtract_arrays
+        return subtract_arrays(other, self)
+
+        # Multiplication
+
+    def __mul__(self, other):
+        from .operations import multiply_arrays
+        return multiply_arrays(self, other)
+
+    def __rmul__(self, other):
+        return self.__mul__(other)
+
+        # Division
+
+    def __truediv__(self, other):
+        from .operations import divide_arrays
+        return divide_arrays(self, other)
+
+    def __rtruediv__(self, other):
+        from .operations import divide_arrays
+        return divide_arrays(other, self)
+
+        # Comparisons
+
+    def __eq__(self, other):
+        from .operations import equal
+        return equal(self, other)
+
+    def __ne__(self, other):
+        from .operations import not_equal
+        return not_equal(self, other)
+
+    def __lt__(self, other):
+        from .operations import less_than
+        return less_than(self, other)
+
+    def __le__(self, other):
+        from .operations import less_equal
+        return less_equal(self, other)
+
+    def __gt__(self, other):
+        from .operations import greater_than
+        return greater_than(self, other)
+
+    def __ge__(self, other):
+        from .operations import greater_equal
+        return greater_equal(self, other)
+
     def reshape(self, new_shape):
         # Calculate the expected number of elements
         expected_size = 1
@@ -85,8 +149,10 @@ class Array:
     def copy(self):
         return Array(self.data.copy(), self.shape)
 
-    # Convert multidimensional indices to flat index
     def _flat_index(self, indices):
+        """
+        Convert multidimensional indices to flat index
+        """
         flat_index = 0
 
         for i in range(self.ndim):
@@ -94,7 +160,8 @@ class Array:
 
         return flat_index
 
-def to_nested(data, shape):
+
+def _to_nested(data, shape):
     if len(shape) == 1:
         return data
 
@@ -103,13 +170,12 @@ def to_nested(data, shape):
         step *= dim
 
     return [
-        to_nested(data[i:i + step], shape[1:])
+        _to_nested(data[i:i + step], shape[1:])
         for i in range(0, len(data), step)
     ]
 
-###Module-level func
 
-def validate_shape(data, shape):
+def _validate_shape(data, shape):
     # Check shape type
     if not isinstance(shape, (tuple, list)):
         raise TypeError("Shape must be a tuple or list.")
@@ -133,7 +199,8 @@ def validate_shape(data, shape):
             f"shape {shape} (expected {expected_size} elements)."
         )
 
-def calculate_strides(shape):
+
+def _calculate_strides(shape):
     strides = [1] * len(shape)
 
     for i in range(len(shape) - 2, -1, -1):
@@ -141,7 +208,8 @@ def calculate_strides(shape):
 
     return tuple(strides)
 
-def normalize_index(shape, index, axis):
+
+def _normalize_index(shape, index, axis):
     """Normalize positive and negative indices"""
     if not isinstance(index, int) or isinstance(index, bool):
         raise TypeError("Index must be an integer")

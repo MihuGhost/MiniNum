@@ -24,3 +24,19 @@ copying slice & view-based slice
 - basic slicing
 - row/ column extraction
 
+##### Phase 3
+
+- element-wisse operations
+- broadcasting 
+  - Think of each dimension independently:
+
+$$
+result_i =
+\begin{cases}
+A_i & A_i=B_i\\
+A_i & B_i=1\\
+B_i & A_i=1\\
+\text{Error} & \text{otherwise}
+\end{cases}
+$$
+
