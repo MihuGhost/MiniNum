@@ -1,17 +1,16 @@
-from .exceptions import ShapeError
 from itertools import product
 
 
 class Array:
 
     def __init__(self, data, shape):
-        self._validate_shape(data, shape)
+        validate_shape(data, shape)
 
         self.data = data
         self.shape = tuple(shape)
         self.ndim = len(self.shape)
         self.size = len(self.data)
-        self.strides = self._calculate_strides(self.shape)
+        self.strides = calculate_strides(self.shape)
 
     def __str__(self):
         return str(to_nested(self.data, self.shape))
@@ -39,8 +38,8 @@ class Array:
 
         for axis, item in enumerate(key):
             # Integer indexing
-            if isinstance(item, int) and not isinstance(item, bool):
-                index = self._normalize_index(item, axis)
+            if isinstance(item, int) and not isinstance(item, bool): # bool is a subclass of int [1 true]
+                index = normalize_index(self.shape, item, axis)
                 selected_indices.append([index])
             # Slicing
             elif isinstance(item, slice):
@@ -69,40 +68,6 @@ class Array:
         # Return a new Array containing the selected data
         return Array(result_data, tuple(result_shape))
 
-    @staticmethod
-    def _validate_shape(data, shape):
-        # Check shape type
-        if not isinstance(shape, (tuple, list)):
-            raise TypeError("Shape must be a tuple or list.")
-
-        # Check dimensions
-        if not all(type(dim) is int for dim in shape):
-            raise TypeError("Shape dimensions must be integers.")
-
-        # Check negative dimensions
-        if any(dim < 0 for dim in shape):
-            raise ValueError("Shape dimensions cannot be negative.")
-
-        # Check total number of elements
-        expected_size = 1
-        for dim in shape:
-            expected_size *= dim
-
-        if len(data) != expected_size:
-            raise ValueError(
-                f"Data size ({len(data)}) does not match "
-                f"shape {shape} (expected {expected_size} elements)."
-            )
-
-    @staticmethod
-    def _calculate_strides(shape):
-        strides = [1] * len(shape)
-
-        for i in range(len(shape) - 2, -1, -1):
-            strides[i] = strides[i + 1] * shape[i + 1]
-
-        return tuple(strides)
-
     def reshape(self, new_shape):
         # Calculate the expected number of elements
         expected_size = 1
@@ -120,19 +85,6 @@ class Array:
     def copy(self):
         return Array(self.data.copy(), self.shape)
 
-    def _normalize_index(self, index, axis):
-        """Normalize positive and negative indices"""
-        if not isinstance(index, int) or isinstance(index, bool):
-            raise TypeError("Index must be an integer")
-
-        if index < 0:
-            index += self.shape[axis]
-
-        if index < 0 or index >= self.shape[axis]:
-            raise IndexError("Index out of bounds")
-
-        return index
-
     # Convert multidimensional indices to flat index
     def _flat_index(self, indices):
         flat_index = 0
@@ -141,7 +93,6 @@ class Array:
             flat_index += indices[i] * self.strides[i]
 
         return flat_index
-
 
 def to_nested(data, shape):
     if len(shape) == 1:
@@ -155,3 +106,50 @@ def to_nested(data, shape):
         to_nested(data[i:i + step], shape[1:])
         for i in range(0, len(data), step)
     ]
+
+###Module-level func
+
+def validate_shape(data, shape):
+    # Check shape type
+    if not isinstance(shape, (tuple, list)):
+        raise TypeError("Shape must be a tuple or list.")
+
+    # Check dimensions
+    if not all(type(dim) is int for dim in shape):
+        raise TypeError("Shape dimensions must be integers.")
+
+    # Check negative dimensions
+    if any(dim < 0 for dim in shape):
+        raise ValueError("Shape dimensions cannot be negative.")
+
+    # Check total number of elements
+    expected_size = 1
+    for dim in shape:
+        expected_size *= dim
+
+    if len(data) != expected_size:
+        raise ValueError(
+            f"Data size ({len(data)}) does not match "
+            f"shape {shape} (expected {expected_size} elements)."
+        )
+
+def calculate_strides(shape):
+    strides = [1] * len(shape)
+
+    for i in range(len(shape) - 2, -1, -1):
+        strides[i] = strides[i + 1] * shape[i + 1]
+
+    return tuple(strides)
+
+def normalize_index(shape, index, axis):
+    """Normalize positive and negative indices"""
+    if not isinstance(index, int) or isinstance(index, bool):
+        raise TypeError("Index must be an integer")
+
+    if index < 0:
+        index += shape[axis]
+
+    if index < 0 or index >= shape[axis]:
+        raise IndexError("Index out of bounds")
+
+    return index

@@ -84,6 +84,8 @@ def test_array_definition():
 
 
 """PHASE 2"""
+
+
 def test_array_indexing():
     arr = Array(
         [10, 20, 30, 11, 21, 31, 40, 50, 60, 41, 51, 61,
@@ -104,7 +106,7 @@ def test_array_indexing():
     with pytest.raises(
             IndexError,
             match="bounds"
-    ): var = arr[-20]
+    ): var = arr[1, 2, 1, 2]
 
     # 4. Multidimensional indexing
     assert arr.data[16] == arr[1, 1, 0, 0]
