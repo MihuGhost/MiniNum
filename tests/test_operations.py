@@ -7,58 +7,63 @@ PHASE 3
 
 
 def test_addition():
-    a = Array([1, 2, 3], (3,))
-    b = Array([4, 5, 6], (3,))
+    a = Array([1, 2, 3, 4, 5, 6], (3, 2))
+    b = Array([1, 2, 3, 4, 5, 6], (3, 2))
 
-    assert (a + b).data == [5, 7, 9]
+    assert (a + b).data == [2, 4, 6, 8, 10, 12]
+    assert (a + b).shape == (3, 2)
 
 
 def test_subtraction():
-    a = Array([5, 6, 7], (3,))
-    b = Array([1, 2, 3], (3,))
+    a = Array([2, 4, 6, 8, 10, 12], (3, 2))
+    b = Array([1, 2, 3, 4, 5, 6], (3, 2))
 
-    assert (a - b).data == [4, 4, 4]
+    assert (a - b).data == [1, 2, 3, 4, 5, 6]
+    assert (a - b).shape == (3, 2)
 
 
 def test_multiplication():
-    a = Array([1, 2, 3], (3,))
-
-    assert (a * 2).data == [2, 4, 6]
+    a = Array([1, 2, 3, 4, 5, 6], (3, 2))
+    assert (a * 2).data == [2, 4, 6, 8, 10, 12]
+    assert (a * 2).shape == (3, 2)
 
 
 def test_division():
-    a = Array([10, 20, 30], (3,))
+    a = Array([2, 4, 6, 8, 10, 12], (3, 2))
 
-    assert (a / 10).data == [1, 2, 3]
+    assert (a / 2).data == [1, 2, 3, 4, 5, 6]
+    assert (a / 2).shape == (3, 2)
 
 
 def test_reverse_subtraction():
-    a = Array([1, 2, 3], (3,))
+    a = Array([1, 2, 3, 4, 5, 6], (3, 2))
 
-    assert (10 - a).data == [9, 8, 7]
+    assert (10 - a).data == [9, 8, 7, 6, 5, 4]
+    assert (10 - a).shape == (3, 2)
 
 
 def test_comparison():
-    a = Array([1, 5, 3], (3,))
-    b = Array([2, 5, 1], (3,))
+    a = Array([1, 2, 3, 4, 5, 6], (3, 2))
+    b = Array([2, 1, 2, 6, 4, 7], (3, 2))
 
-    assert (a < b).data == [True, False, False]
+    assert (a < b).data == [True, False, False, True, False, True]
+    assert (a < b).shape == (3, 2)
 
+def test_shape_match():
+    a = Array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], (2, 2, 3))
+    b = Array([1, 2, 3, 4, 5, 6], (2, 1, 3))
+    c = Array([1, 2, 3, 4, 5, 6], (2, 3))
+    d = Array([1, 2, 3, 4], (2, 2))
 
-def test_shape_mismatch():
-    a = Array([1, 2], (2,))
-    b = Array([1, 2, 3], (3,))
+    assert (a + b).data == [2, 4, 6, 5, 7, 9, 11, 13, 15, 14, 16, 18]
+    assert (a + b).shape == (2, 2, 3)
+    assert (a < b).data == [False, False,False, False,False, False,False, False,False, False,False, False]
+    assert (a < b).shape == (2, 2,3)
+    assert (a + c).data == [2, 4, 6, 8, 10, 12, 8, 10, 12, 14, 16, 18]
+    assert (a + c).shape == (2, 2, 3)
 
     try:
-        a + b
+        a + d
         assert False, "Expected ShapeError"
     except ShapeError:
         pass
-
-
-def test_shape_match():
-    a = Array([1, 2, 3, 4, 5, 6], (2, 3))
-    b = Array([10, 20, 30], (3,))
-
-    assert (a + b).data == [11, 22, 33, 14, 25, 36]
-    assert (a+b).shape == (2, 3)
