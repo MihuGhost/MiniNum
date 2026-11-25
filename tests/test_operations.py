@@ -49,6 +49,7 @@ def test_comparison():
     assert (a < b).data == [True, False, False, True, False, True]
     assert (a < b).shape == (3, 2)
 
+
 def test_shape_match():
     a = Array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], (2, 2, 3))
     b = Array([1, 2, 3, 4, 5, 6], (2, 1, 3))
@@ -57,8 +58,8 @@ def test_shape_match():
 
     assert (a + b).data == [2, 4, 6, 5, 7, 9, 11, 13, 15, 14, 16, 18]
     assert (a + b).shape == (2, 2, 3)
-    assert (a < b).data == [False, False,False, False,False, False,False, False,False, False,False, False]
-    assert (a < b).shape == (2, 2,3)
+    assert (a < b).data == [False, False, False, False, False, False, False, False, False, False, False, False]
+    assert (a < b).shape == (2, 2, 3)
     assert (a + c).data == [2, 4, 6, 8, 10, 12, 8, 10, 12, 14, 16, 18]
     assert (a + c).shape == (2, 2, 3)
 

@@ -40,4 +40,23 @@ B_i & A_i=1\\
 \end{cases}
 $$
 
+todo: time-complexity
+
+
+
+##### Phase 4
+
+Operations:
+
+sum
+
+min
+
+max
+
+mean
+
+median [optimize sort al]
+
+variance
 
