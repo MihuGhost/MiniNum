@@ -1,7 +1,19 @@
 # todo Welford’s one-pass algorithm for variance
 
 from mininum import Array
-from mininum.statistics import sum, min, max, mean, variance, standard_deviation, argmin, argmax, count, unique, median
+from mininum.statistics import (
+    sum,
+    min,
+    max,
+    mean,
+    variance,
+    standard_deviation,
+    argmin,
+    argmax,
+    count,
+    unique,
+    median
+)
 
 
 def test_sum():

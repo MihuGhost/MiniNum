@@ -1,6 +1,24 @@
 ##### Phase 0
 
- 
+ **array** Representation, construction, shape, strides, indexing, slicing
+
+**operations** Element-wise arithmetic, comparisons, broadcasting
+
+**algorithms** Searching, sorting, selection, hashing-based operations
+
+**statistics** Aggregations, median, variance, histogram data
+
+**linalg** Vectors, matrices, transpose, dot products, multiplication
+
+**io** CSV loading/saving and data cleaning
+
+**plot** Line, scatter, bar, histogram, optional heat map
+
+**tests** Unit, property, integration, regression, and performance tests
+
+**examples** End-to-end applications using real datasets
+
+
 
 ##### Phase 1
 
@@ -59,4 +77,48 @@ mean
 median [optimize sort al]
 
 variance
+
+standard_deviation
+
+argmin
+
+argmax
+
+count
+
+unique
+
+
+
+##### Pase 5
+
+- linear search
+- binary search
+- merge sort
+
+$$
+O(n \log n)
+$$
+
+
+
+- bubble sort  
+
+$$
+O(n^2)
+$$
+
+- quicksort
+
+$$
+O(n \log n)
+$$
+
+
+
+- quickselect
+- duplicate detection
+- top-k selection
+
+
 
