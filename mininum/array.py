@@ -74,7 +74,6 @@ class Array:
         return add(self, other)
 
     def __radd__(self, other):
-        from .operations import add
         return self.__add__(other)
 
         # Subtraction

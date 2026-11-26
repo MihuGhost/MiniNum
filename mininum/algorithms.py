@@ -34,7 +34,7 @@ def sort(arr, algorithm="merge"):
 #         hash_table[value].append(i)
 #
 #     # Sort values and collect their original indices
-#     indices = []
+#     0indices = []
 #     for value in sort(list(hash_table.keys())):
 #         indices.extend(hash_table[value])
 #
