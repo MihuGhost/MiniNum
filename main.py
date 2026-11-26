@@ -1,6 +1,15 @@
 import numpy as np
 from mininum import Array
-
+from mininum.algorithms import (
+    linear_search,
+    binary_search,
+    merge_sort,
+    quick_sort,
+    bubble_sort,
+    quick_select,
+    unique_set,
+    top_k,
+)
 
 # arr = Array(
 #     [10, 20, 30, 11, 21, 31, 40, 50, 60, 41, 51, 61,
@@ -168,33 +177,49 @@ from mininum import Array
 #     right_result = quick_sort(right)
 #     return left_result + [pivot] + right_result
 
-def partition(arr, pivot_index):
-    pivot = arr[pivot_index]
-    left = []
-    right = []
-    for i, x in enumerate(arr):
-        if i == pivot_index:
-            continue
-        if x <= pivot:
-            left.append(x)
+# def partition(arr, pivot_index):
+#     pivot = arr[pivot_index]
+#     left = []
+#     right = []
+#     for i, x in enumerate(arr):
+#         if i == pivot_index:
+#             continue
+#         if x <= pivot:
+#             left.append(x)
+#         else:
+#             right.append(x)
+#
+#     return left, pivot,right
+
+# def quick_select(arr, k):
+#     if len(arr) == 1:
+#         return arr[0]
+#
+#     pivot_index = len(arr) // 2
+#
+#     left, pivot, right = partition(arr, pivot_index)
+#
+#     if k < len(left):
+#         return quick_select(left,k)
+#     elif k == len(right):
+#         return pivot
+#     else:
+#         return quick_select(right, k- len(left) - 1)
+#
+# print(quick_select([1, 38, 121, 27, 43, 9, 31, 18],3))
+
+
+def flatten(data):
+    result = []
+
+    for item in data:
+        if isinstance(item, list):
+            result.extend(flatten(item))
         else:
-            right.append(x)
+            result.append(item)
 
-    return left, pivot,right
+    return result
 
-def quick_select(arr, k):
-    if len(arr) == 1:
-        return arr[0]
-
-    pivot_index = len(arr) // 2
-
-    left, pivot, right = partition(arr, pivot_index)
-
-    if k < len(left):
-        return quick_select(left,k)
-    elif k == len(right):
-        return pivot
-    else:
-        return quick_select(right, k- len(left) - 1)
-
-print(quick_select([1, 38, 121, 27, 43, 9, 31, 18],3))
+a = Array([5, 3, 8, 1, 2], (5,))
+print(flatten(a.data))
+print(bubble_sort(a))

@@ -60,6 +60,8 @@ $$
 
 todo: time-complexity
 
+optimization: eq & nq, "Even though both arrays have identical data and shapes, Python considers them unequal."
+
 
 
 ##### Phase 4

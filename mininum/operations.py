@@ -109,11 +109,14 @@ def divide(a, b):
 
 
 def equal(a, b):
-    return elementwise_operation(a, b, lambda x, y: x == y)
+    if not isinstance(b, Array):
+        return False
+
+    return a.data == b.data and a.shape == b.shape
 
 
 def not_equal(a, b):
-    return elementwise_operation(a, b, lambda x, y: x != y)
+    return not equal(a, b)
 
 
 def less_than(a, b):

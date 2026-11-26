@@ -40,19 +40,10 @@ def test_bubble_sort():
     c = Array([4, 3, 2, 1], (4,))
     d = Array([5, 5, 2, 2], (4,))
 
-    assert (bubble_sort(a.copy()) == Array([1, 2, 3, 5, 8], (5,)))
+    assert bubble_sort(a) == Array([1, 2, 3, 5, 8], (5,))
     assert bubble_sort(b.copy()) == Array([], (0,))
     assert bubble_sort(c.copy()) == Array([1, 2, 3, 4], (4,))
     assert bubble_sort(d.copy()) == Array([2, 2, 5, 5], (4,))
-
-def test_selection_sort():
-    a = [5, 3, 8, 1, 2]
-    b = []
-    c = [4, 3, 2, 1]
-
-    assert selection_sort(a.copy()) == [1, 2, 3, 5, 8]
-    assert selection_sort(b.copy()) == []
-    assert selection_sort(c.copy()) == [1, 2, 3, 4]
 
 
 def test_merge_sort():
@@ -94,7 +85,7 @@ def test_has_duplicates():
     c = []
     d = [7]
 
-    assert has_duplicates(a) == False
-    assert has_duplicates(b) == True
-    assert has_duplicates(c) == False
-    assert has_duplicates(d) == False
+    assert unique_set(a) == False
+    assert unique_set(b) == True
+    assert unique_set(c) == False
+    assert unique_set(d) == False

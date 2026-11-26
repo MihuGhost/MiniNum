@@ -1,4 +1,18 @@
 import heapq
+import itertools
+from mininum import Array
+
+
+def flatten(data):
+    result = []
+
+    for item in data:
+        if isinstance(item, list):
+            result.extend(flatten(item))
+        else:
+            result.append(item)
+
+    return result
 
 
 def linear_search(arr, target):
@@ -66,13 +80,14 @@ def quick_sort(arr):
     return left_result + [pivot] + right_result
 
 
-def bubble_sort(arr):
-    for i in range(len(arr)):
+def bubble_sort(marr):
+   arr = flatten(marr)
+   for i in range(len(arr)):
         for j in range(len(arr) - i - 1):
             if arr[j] > arr[j + 1]:
                 arr[j], arr[j + 1] = arr[j + 1], arr[j]
 
-    return arr
+   return Array(arr, marr.shape)
 
 
 def quick_select(arr, k):
