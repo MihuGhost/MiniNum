@@ -50,6 +50,20 @@ def test_comparison():
     assert (a < b).shape == (3, 2)
 
 
+def test_not_equal():
+    a = Array([1, 2, 3, 4, 5, 6], (3, 2))
+    b = Array([2, 1, 2], (3,))
+
+    assert (a == b) == False
+
+
+def test_equal():
+    a = Array([2, 1, 2, 6, 4, 7], (3, 2))
+    b = Array([2, 1, 2, 6, 4, 7], (3, 2))
+
+    assert (a == b) == True
+
+
 def test_shape_match():
     a = Array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], (2, 2, 3))
     b = Array([1, 2, 3, 4, 5, 6], (2, 1, 3))

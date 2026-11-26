@@ -94,6 +94,10 @@ unique
 
 ##### Pase 5
 
+flat to 1-d array then implement algorithms 
+
+export APIs
+
 - linear search
 - binary search
 - merge sort

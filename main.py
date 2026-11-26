@@ -82,31 +82,31 @@ from mininum.algorithms import (
 #     return result
 
 
-# def main(arr):
-#     if len(arr) <= 1:
-#         return arr
-#
-#     mid = len(arr) // 2
-#     left = main(arr[:mid])
-#     right = main(arr[mid:])
-#
-#     result = []
-#     i, j = 0, 0
-#     while i < len(left) and j < len(right):
-#         if left[i] <= right[j]:
-#             result.append(left[i])
-#             i += 1
-#         else:
-#             result.append(right[j])
-#             j += 1
-#
-#     result.extend(left[i:])
-#     result.extend(right[j:])
-#
-#     return result
-#
+def main(arr):
+    if len(arr) <= 1:
+        return arr
 
-# print(main([1, 38, 12, 27, 43, 9, 31, 18]))
+    mid = len(arr) // 2
+    left = main(arr[:mid])
+    right = main(arr[mid:])
+
+    result = []
+    i, j = 0, 0
+    while i < len(left) and j < len(right):
+        if left[i] <= right[j]:
+            result.append(left[i])
+            i += 1
+        else:
+            result.append(right[j])
+            j += 1
+
+    result.extend(left[i:])
+    result.extend(right[j:])
+
+    return result
+
+
+print(main([1, 38, 12, 27, 43, 9, 31, 18]))
 
 #
 # def partition(arr, pivot_index):
@@ -208,18 +208,18 @@ from mininum.algorithms import (
 #
 # print(quick_select([1, 38, 121, 27, 43, 9, 31, 18],3))
 
-
-def flatten(data):
-    result = []
-
-    for item in data:
-        if isinstance(item, list):
-            result.extend(flatten(item))
-        else:
-            result.append(item)
-
-    return result
-
-a = Array([5, 3, 8, 1, 2], (5,))
-print(flatten(a.data))
-print(bubble_sort(a))
+#
+# def flatten(data):
+#     result = []
+#
+#     for item in data:
+#         if isinstance(item, list):
+#             result.extend(flatten(item))
+#         else:
+#             result.append(item)
+#
+#     return result
+#
+# a = Array([5, 3, 8, 1, 2], (5,))
+# print(flatten(a.data))
+# print(bubble_sort(a))
